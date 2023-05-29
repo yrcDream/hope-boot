@@ -3,13 +3,16 @@ package com.hope.controller;
 import com.hope.core.CodeGeneratorTool;
 import com.hope.core.model.ClassInfo;
 import com.hope.model.ReturnT;
+import com.hope.param.CodeGeneratorParam;
 import com.hope.util.FreemarkerTool;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -37,10 +40,11 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping("/codeGenerate")
+    @RequestMapping(value = "/codeGenerate",method = RequestMethod.POST)
     @ResponseBody
-    public ReturnT<Map<String, String>> codeGenerate(String tableSql) {
+    public ReturnT<Map<String, String>> codeGenerate(@RequestBody CodeGeneratorParam param) {
 
+        String tableSql = param.getTableSql();
         try {
 
             if (StringUtils.isBlank(tableSql)) {
@@ -57,13 +61,13 @@ public class IndexController {
             // result
             Map<String, String> result = new HashMap<String, String>();
 
-            result.put("controller_code", freemarkerTool.processString("xxl-code-generator/controller.ftl", params));
-            result.put("service_code", freemarkerTool.processString("xxl-code-generator/service.ftl", params));
-            result.put("service_impl_code", freemarkerTool.processString("xxl-code-generator/service_impl.ftl", params));
+            result.put("controller_code", freemarkerTool.processString("xxl-code-generator/controller.ftl", params,"UserController"));
+            result.put("service_code", freemarkerTool.processString("xxl-code-generator/service.ftl", params,"userService"));
+            result.put("service_impl_code", freemarkerTool.processString("xxl-code-generator/service_impl.ftl", params,"userServiceImpl"));
 
-            result.put("dao_code", freemarkerTool.processString("xxl-code-generator/dao.ftl", params));
-            result.put("mybatis_code", freemarkerTool.processString("xxl-code-generator/mybatis.ftl", params));
-            result.put("model_code", freemarkerTool.processString("xxl-code-generator/model.ftl", params));
+            result.put("dao_code", freemarkerTool.processString("xxl-code-generator/dao.ftl", params,"UserDao"));
+            result.put("mybatis_code", freemarkerTool.processString("xxl-code-generator/mybatis.ftl", params,"UserMapper.xml"));
+            result.put("model_code", freemarkerTool.processString("xxl-code-generator/model.ftl", params,"UserDO"));
 
             // 计算,生成代码行数
             int lineNum = 0;

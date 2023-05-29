@@ -50,7 +50,7 @@ public class TableParseUtil {
         if (tableName.contains("`")) {
             tableName = tableName.substring(tableName.indexOf("`")+1, tableName.lastIndexOf("`"));
         }
-
+        tableName = tableName.trim();
         // class Name
         String className = StringUtils.upperCaseFirst(StringUtils.underlineToCamelCase(tableName));
         if (className.contains("_")) {
@@ -67,6 +67,8 @@ public class TableParseUtil {
             if (classCommentTmp!=null && classCommentTmp.trim().length()>0) {
                 classComment = classCommentTmp;
             }
+        } else {
+            classComment = "未添加描述";
         }
 
         // field List

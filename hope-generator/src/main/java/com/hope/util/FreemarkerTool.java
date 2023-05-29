@@ -9,8 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.Map;
 
 /**
@@ -38,12 +37,15 @@ public class FreemarkerTool {
      * @throws IOException
      * @throws TemplateException
      */
-    public String processTemplateIntoString(Template template, Object model)
+    public String processTemplateIntoString(Template template, Object model,String className)
             throws IOException, TemplateException {
 
-        StringWriter result = new StringWriter();
-        template.process(model, result);
-        return result.toString();
+        // TODO 尝试指定文件输出位置！！！！
+        File file = new File("./data/hope/code/"+ className +".java");
+        Writer writer = new OutputStreamWriter(new FileOutputStream(file));
+        template.process(model, writer);
+        writer.flush();
+        return "ok";
     }
 
     /**
@@ -55,11 +57,11 @@ public class FreemarkerTool {
      * @throws IOException
      * @throws TemplateException
      */
-    public String processString(String templateName, Map<String, Object> params)
+    public String processString(String templateName, Map<String, Object> params,String className)
             throws IOException, TemplateException {
 
         Template template = configuration.getTemplate(templateName);
-        String htmlText = processTemplateIntoString(template, params);
+        String htmlText = processTemplateIntoString(template, params,className);
         return htmlText;
     }
 
