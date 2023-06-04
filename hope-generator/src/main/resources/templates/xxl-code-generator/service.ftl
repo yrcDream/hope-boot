@@ -1,16 +1,18 @@
+package ${ServicePackage};
 import java.util.Map;
+import ${POJOClass};
 
 /**
 * ${classInfo.classComment}
 *
-* Created by xuxueli on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
+* Created by yrc on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
 */
 public interface ${classInfo.className}Service {
 
     /**
     * 新增
     */
-    public ReturnT<String> insert(${classInfo.className} ${classInfo.className?uncap_first});
+    public ReturnT<String> insert(${classInfo.className}POJO ${classInfo.className?uncap_first});
 
     /**
     * 删除
@@ -20,12 +22,12 @@ public interface ${classInfo.className}Service {
     /**
     * 更新
     */
-    public ReturnT<String> update(${classInfo.className} ${classInfo.className?uncap_first});
+    public ReturnT<String> update(${classInfo.className}POJO ${classInfo.className?uncap_first});
 
     /**
     * Load查询
     */
-    public ${classInfo.className} load(int id);
+    public ${classInfo.className}POJO load(int id);
 
     /**
     * 分页查询

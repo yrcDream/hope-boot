@@ -23,11 +23,12 @@ public class IProjectGeneratorTest {
         tableSqls.add("create table user (`id` bigint(11) primary key,`name` varchar(50))");
         ProjectInfo projectInfo = new ProjectInfo(
                 "cn.yrc.demo",
-                "project-test",
+                "template",
                 "1.0.0-SNAPSHOT",
-                "project-test",
+                "templatedemo",
                 "Demo project for Spring Boot",
                 tableSqls);
         projectGenerator.generator(projectInfo);
     }
+
 }

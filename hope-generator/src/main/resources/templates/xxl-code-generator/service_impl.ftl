@@ -1,3 +1,4 @@
+package ${ServiceImplPackage};
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -5,11 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import ${POJOClass};
+import ${DaoClass};
+import ${ServiceClass};
 
 /**
 * ${classInfo.classComment}
 *
-* Created by xuxueli on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
+* Created by yrc on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
 */
 @Service
 public class ${classInfo.className}ServiceImpl implements ${classInfo.className}Service {
@@ -21,7 +25,7 @@ public class ${classInfo.className}ServiceImpl implements ${classInfo.className}
     * 新增
     */
 	@Override
-	public ReturnT<String> insert(${classInfo.className} ${classInfo.className?uncap_first}) {
+	public ReturnT<String> insert(${classInfo.className}POJO ${classInfo.className?uncap_first}) {
 
 		// valid
 		if (${classInfo.className?uncap_first} == null) {
@@ -45,7 +49,7 @@ public class ${classInfo.className}ServiceImpl implements ${classInfo.className}
 	* 更新
 	*/
 	@Override
-	public ReturnT<String> update(${classInfo.className} ${classInfo.className?uncap_first}) {
+	public ReturnT<String> update(${classInfo.className}POJO ${classInfo.className?uncap_first}) {
 		int ret = ${classInfo.className?uncap_first}Dao.update(${classInfo.className?uncap_first});
 		return ret>0?ReturnT.SUCCESS:ReturnT.FAIL;
 	}
@@ -54,7 +58,7 @@ public class ${classInfo.className}ServiceImpl implements ${classInfo.className}
 	* Load查询
 	*/
 	@Override
-	public ${classInfo.className} load(int id) {
+	public ${classInfo.className}POJO load(int id) {
 		return ${classInfo.className?uncap_first}Dao.load(id);
 	}
 
@@ -64,14 +68,13 @@ public class ${classInfo.className}ServiceImpl implements ${classInfo.className}
 	@Override
 	public Map<String,Object> pageList(int offset, int pagesize) {
 
-		List<${classInfo.className}> pageList = ${classInfo.className?uncap_first}Dao.pageList(offset, pagesize);
+		List<${classInfo.className}POJO> pageList = ${classInfo.className?uncap_first}Dao.pageList(offset, pagesize);
 		int totalCount = ${classInfo.className?uncap_first}Dao.pageListCount(offset, pagesize);
 
 		// result
 		Map<String, Object> result = new HashMap<String, Object>();
-		maps.put("pageList", pageList);
-		maps.put("totalCount", totalCount);
-
+		result.put("pageList", pageList);
+		result.put("totalCount", totalCount);
 		return result;
 	}
 

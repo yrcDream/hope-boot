@@ -16,35 +16,46 @@ public class GenerationProjectDir extends BaseModule {
     public void doGeneration(ProjectInfo projectInfo, String projectsRoot,String lastPackageName) throws Exception {
 
         String packageName = projectInfo.getGroupId();
-        String basePackagePath = packageName.replace(".", "/");
+        String basePackagePath = packageName.replace(".", "/") + "/" +lastPackageName;
 
-        log.info("开始创建项目目录");
-
+        long startMs = System.currentTimeMillis();
+        log.info("开始创建项目目录-------------");
+        // /src/main/java/xxx.xxx.xxx
         File baseDir = new File(projectsRoot + Constants.JAVA_PRE + "/" + basePackagePath);
         super.createFir(baseDir);
         log.info("创建base目录：{}", baseDir.getPath());
         DirCacheHolder.add(Constants.BASE_DIR_KEY,baseDir);
-
+        // /src/main/java/xxx.xxx.xxx/controller
         File controllerDir = new File(projectsRoot + Constants.JAVA_PRE + "/" + basePackagePath + Constants.CONTROLLER_DIR);
         super.createFir(controllerDir);
         log.info("创建controller目录：{}", controllerDir.getPath());
         DirCacheHolder.add(Constants.CONTROLLER_DIR_KEY,controllerDir);
 
+        // /src/main/java/xxx.xxx.xxx/business
+        File businessDir = new File(projectsRoot + Constants.JAVA_PRE + "/" + basePackagePath + Constants.BUSINESS_DIR);
+        super.createFir(businessDir);
+        log.info("创建business目录：{}", businessDir.getPath());
+        DirCacheHolder.add(Constants.BUSINESS_DIR_KEY,businessDir);
+
+        // /src/main/java/xxx.xxx.xxx/business/service
         File serviceDir = new File(projectsRoot + Constants.JAVA_PRE + "/" + basePackagePath + Constants.SERVICE_DIR);
         super.createFir(serviceDir);
         log.info("创建service目录：{}", serviceDir.getPath());
         DirCacheHolder.add(Constants.SERVICE_DIR_KEY,serviceDir);
 
+        // /src/main/java/xxx.xxx.xxx/business/service/impl
         File serviceImplDir = new File(projectsRoot + Constants.JAVA_PRE + "/" + basePackagePath + Constants.SERVICE_IMPL_DIR);
         super.createFir(serviceImplDir);
         log.info("创建service-impl目录：{}", serviceImplDir.getPath());
         DirCacheHolder.add(Constants.SERVICE_IMPL_DIR_KEY,serviceImplDir);
 
+        // /src/main/java/xxx.xxx.xxx/business/dao
         File daoDir = new File(projectsRoot + Constants.JAVA_PRE + "/" + basePackagePath + Constants.DAO_DIR);
         super.createFir(daoDir);
         log.info("创建dao目录：{}", daoDir.getPath());
         DirCacheHolder.add(Constants.DAO_DIR_KEY,daoDir);
 
+        // /src/main/java/xxx.xxx.xxx/business/pojo
         File pojoDir = new File(projectsRoot + Constants.JAVA_PRE + "/" + basePackagePath + Constants.POJO_DIR);
         super.createFir(pojoDir);
         log.info("创建pojo目录：{}", pojoDir.getPath());
@@ -75,7 +86,9 @@ public class GenerationProjectDir extends BaseModule {
         super.createFir(resourceDir);
         log.info("创建mapper-xml目录：{}", mapperXmlDir.getPath());
         DirCacheHolder.add(Constants.MAPPER_XML_DIR_KEY,mapperXmlDir);
-        log.info("结束创建项目目录");
+
+        long endMs = System.currentTimeMillis();
+        log.info("结束创建项目目录,耗时: {}" , (endMs - startMs));
 
 
     }

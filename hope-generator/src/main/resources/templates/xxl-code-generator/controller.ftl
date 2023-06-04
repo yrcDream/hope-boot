@@ -1,3 +1,4 @@
+package ${ControllerPackage};
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -7,14 +8,16 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+import ${POJOClass};
+import ${ServiceClass};
 
 /**
 * ${classInfo.classComment}
 *
-* Created by xuxueli on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
+* Created by yrc on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
 */
 @Controller
-@RequstMapping("/${classInfo.tableName}")
+@RequstMapping("/${classInfo.className?uncap_first}")
 public class  ${classInfo.className}Controller{
 
     @Resource
@@ -25,7 +28,7 @@ public class  ${classInfo.className}Controller{
     */
     @RequestMapping("/insert")
     @ResponseBody
-    public ReturnT<String> insert(${classInfo.className} ${classInfo.className?uncap_first}){
+    public ReturnT<String> insert(${classInfo.className}POJO ${classInfo.className?uncap_first}){
         return ${classInfo.className?uncap_first}Service.insert(${classInfo.className?uncap_first});
     }
 
@@ -43,7 +46,7 @@ public class  ${classInfo.className}Controller{
     */
     @RequestMapping("/update")
     @ResponseBody
-    public ReturnT<String> update(${classInfo.className} ${classInfo.className?uncap_first}){
+    public ReturnT<String> update(${classInfo.className}POJO ${classInfo.className?uncap_first}){
         return ${classInfo.className?uncap_first}Service.update(${classInfo.className?uncap_first});
     }
 
@@ -52,8 +55,9 @@ public class  ${classInfo.className}Controller{
     */
     @RequestMapping("/load")
     @ResponseBody
-    public ReturnT<String> load(int id){
-        return ${classInfo.className?uncap_first}Service.load(id);
+    public ReturnT<${classInfo.className}POJO> load(int id){
+        ${classInfo.className}POJO  ${classInfo.className?uncap_first} = ${classInfo.className?uncap_first}Service.load(id);
+        return new ReturnT< ${classInfo.className?uncap_first}>
     }
 
     /**

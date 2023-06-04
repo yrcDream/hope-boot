@@ -16,7 +16,7 @@ public class GenerationApplication extends BaseModule {
     public void doGeneration(ProjectInfo projectInfo, String projectsRoot, String lastPackageName, StringBuffer applicationJavaName) throws Exception {
 
         ApplicationInfo applicationInfo = new ApplicationInfo(
-                projectInfo.getGroupId() + "." + lastPackageName,
+                projectInfo.getGroupId() + "." ,
                 applicationJavaName.toString()
         );
 

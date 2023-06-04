@@ -5,6 +5,7 @@
         </#if>
     </#list>
 </#if>
+package ${POJOPackage};
 import java.io.Serializable;
 <#if importDdate?? && importDdate>
 import java.util.Date;
@@ -13,9 +14,9 @@ import java.util.Date;
 /**
 *  ${classInfo.classComment}
 *
-*  Created by xuxueli on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
+*  Created by yrc on '${.now?string('yyyy-MM-dd HH:mm:ss')}'.
 */
-public class ${classInfo.className} implements Serializable {
+public class ${classInfo.className}POJO implements Serializable {
     private static final long serialVersionUID = 42L;
 
 <#if classInfo.fieldList?exists && classInfo.fieldList?size gt 0>

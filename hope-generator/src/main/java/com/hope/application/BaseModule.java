@@ -47,8 +47,9 @@ public class BaseModule {
     }
 
     protected void createFir(File file) {
-        if (!file.exists()) {
-            file.mkdirs();
+        if (file.exists()) {
+            file.delete();
         }
+        file.mkdirs();
     }
 }
